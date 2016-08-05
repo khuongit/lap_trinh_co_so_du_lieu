@@ -13,6 +13,7 @@ namespace LapTrinhCoSoDuLieu
 {
     public partial class Form1 : MetroFramework.Forms.MetroForm
     {
+        
         public Form1()
         {
             InitializeComponent();
@@ -26,6 +27,13 @@ namespace LapTrinhCoSoDuLieu
         private void qLNHANSUDataSetBindingSource_CurrentChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void metroButton3_Click(object sender, EventArgs e)
+        {
+           // MessageBox.Show("ME", "Có xóa nó không ?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            MetroFramework.MetroMessageBox.Show(this,"Có Xóa nóa ko ?", "Hỏi cho chắc", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, 100);
+            
         }
     }
 }
