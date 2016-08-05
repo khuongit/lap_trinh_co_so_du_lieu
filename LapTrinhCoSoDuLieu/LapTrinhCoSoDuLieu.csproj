@@ -34,10 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MetroFramework">
-      <HintPath>..\..\..\..\..\Downloads\metroframework-modern-ui-master\MetroFramework\obj\Release\MetroFramework.dll</HintPath>
+      <HintPath>..\MetroFramework\MetroFramework\bin\Release\MetroFramework.dll</HintPath>
     </Reference>
     <Reference Include="MetroFramework.Design">
-      <HintPath>..\..\..\..\..\Downloads\metroframework-modern-ui-master\MetroFramework.Design\obj\Release\MetroFramework.Design.dll</HintPath>
+      <HintPath>..\MetroFramework\MetroFramework.Design\obj\Release\MetroFramework.Design.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
