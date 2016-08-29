@@ -27,7 +27,7 @@ namespace LapTrinhCoSoDuLieu
         {
             cnstr = ConfigurationManager.ConnectionStrings["QLNHANSU_ConnectionString"].ConnectionString;
             cn = new SqlConnection(cnstr);
-            dgvnhanvien.DataSource = getStaff().Tables["KH"];
+            dgvnhanvien.DataSource = getStaff().Tables["staff"];
         }
 
         private void qLNHANSUDataSetBindingSource_CurrentChanged(object sender, EventArgs e)
@@ -39,7 +39,7 @@ namespace LapTrinhCoSoDuLieu
             string sql = @"SELECT * FROM Staff";
             // DataSet ds = new DataSet();
             da = new SqlDataAdapter(sql, cn);
-            da.Fill(ds, "KH");
+            da.Fill(ds, "staff");
             return ds;
         }
         private void metroButton3_Click(object sender, EventArgs e)
@@ -52,6 +52,11 @@ namespace LapTrinhCoSoDuLieu
         private void button2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 }
