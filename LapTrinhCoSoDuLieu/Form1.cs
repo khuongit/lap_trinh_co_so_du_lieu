@@ -25,9 +25,28 @@ namespace LapTrinhCoSoDuLieu
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             cnstr = ConfigurationManager.ConnectionStrings["QLNHANSU_ConnectionString"].ConnectionString;
             cn = new SqlConnection(cnstr);
             dgvnhanvien.DataSource = getStaff().Tables["staff"];
+            btnsua.Visible=false;
+            btndong.Visible = false;
+
+            int[] numbers = new int[5];
+
+            // Multidimensional array
+            string[,] names = new string[5, 4];
+
+            // Array-of-arrays (jagged array)
+            byte[][] scores = new byte[5][];
+
+            // Create the jagged array
+            for (int i = 0; i < scores.Length; i++)
+            {
+                scores[i] = new byte[i + 3];
+            }
+
+            dataGridView2.DataSource = scores;
         }
 
         private void qLNHANSUDataSetBindingSource_CurrentChanged(object sender, EventArgs e)
@@ -57,6 +76,34 @@ namespace LapTrinhCoSoDuLieu
         private void button1_Click(object sender, EventArgs e)
         {
            
+        }
+
+        private void dgvnhanvien_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+            
+            //User selected WHOLE ROW (by clicking in the margin)
+            if (dgv.SelectedRows.Count > 0)
+            {
+                btnreset.Visible = false;
+                btnthem.Visible = false;
+                btnsua.Visible = true;
+                btndong.Visible = true;
+                txtfname.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
+                txtlname.Text = dgv.SelectedRows[0].Cells[2].Value.ToString();
+            }
+                //MessageBox.Show(dgv.SelectedRows[0].Cells[0].Value.ToString());
+            
+        }
+
+        private void btndong_Click(object sender, EventArgs e)
+        {
+            btnreset.Visible = true;
+            btnthem.Visible = true;
+            btnsua.Visible = false;
+            btndong.Visible = false;
+            txtfname.Text = "";
+            txtlname.Text = "";
         }
     }
 }
