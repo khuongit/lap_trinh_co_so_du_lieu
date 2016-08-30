@@ -65,12 +65,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.mtrchucvu = new MetroFramework.Controls.MetroTabPage();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.dgvchucvu = new System.Windows.Forms.DataGridView();
             this.label9 = new System.Windows.Forms.Label();
             this.txtMaCV = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btthem = new System.Windows.Forms.Button();
+            this.btsua = new System.Windows.Forms.Button();
+            this.btdong = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.txtmota = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -87,7 +87,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.mtrchucvu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvchucvu)).BeginInit();
             this.SuspendLayout();
             // 
             // mtLuong
@@ -98,8 +98,8 @@
             this.mtLuong.Location = new System.Drawing.Point(1, 62);
             this.mtLuong.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.mtLuong.Name = "mtLuong";
-            this.mtLuong.SelectedIndex = 2;
-            this.mtLuong.Size = new System.Drawing.Size(744, 593);
+            this.mtLuong.SelectedIndex = 0;
+            this.mtLuong.Size = new System.Drawing.Size(1094, 593);
             this.mtLuong.TabIndex = 1;
             this.mtLuong.UseSelectable = true;
             // 
@@ -139,7 +139,7 @@
             this.Home.Location = new System.Drawing.Point(4, 38);
             this.Home.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Home.Name = "Home";
-            this.Home.Size = new System.Drawing.Size(736, 551);
+            this.Home.Size = new System.Drawing.Size(1086, 551);
             this.Home.TabIndex = 0;
             this.Home.Text = "Home";
             this.Home.VerticalScrollbarBarColor = true;
@@ -398,7 +398,7 @@
             this.metroTabPage1.HorizontalScrollbarSize = 10;
             this.metroTabPage1.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage1.Name = "metroTabPage1";
-            this.metroTabPage1.Size = new System.Drawing.Size(736, 551);
+            this.metroTabPage1.Size = new System.Drawing.Size(1086, 551);
             this.metroTabPage1.TabIndex = 1;
             this.metroTabPage1.Text = "Lương";
             this.metroTabPage1.VerticalScrollbarBarColor = true;
@@ -458,9 +458,9 @@
             // mtrchucvu
             // 
             this.mtrchucvu.Controls.Add(this.cbxtenchucvu);
-            this.mtrchucvu.Controls.Add(this.button5);
-            this.mtrchucvu.Controls.Add(this.button3);
-            this.mtrchucvu.Controls.Add(this.button2);
+            this.mtrchucvu.Controls.Add(this.btdong);
+            this.mtrchucvu.Controls.Add(this.btsua);
+            this.mtrchucvu.Controls.Add(this.btthem);
             this.mtrchucvu.Controls.Add(this.txtmota);
             this.mtrchucvu.Controls.Add(this.txtNgaytao);
             this.mtrchucvu.Controls.Add(this.txtngaysua);
@@ -470,26 +470,28 @@
             this.mtrchucvu.Controls.Add(this.label11);
             this.mtrchucvu.Controls.Add(this.label10);
             this.mtrchucvu.Controls.Add(this.label9);
-            this.mtrchucvu.Controls.Add(this.dataGridView3);
+            this.mtrchucvu.Controls.Add(this.dgvchucvu);
             this.mtrchucvu.HorizontalScrollbarBarColor = true;
             this.mtrchucvu.HorizontalScrollbarHighlightOnWheel = false;
             this.mtrchucvu.HorizontalScrollbarSize = 10;
             this.mtrchucvu.Location = new System.Drawing.Point(4, 38);
             this.mtrchucvu.Name = "mtrchucvu";
-            this.mtrchucvu.Size = new System.Drawing.Size(736, 551);
+            this.mtrchucvu.Size = new System.Drawing.Size(1086, 551);
             this.mtrchucvu.TabIndex = 2;
             this.mtrchucvu.Text = "Chức Vụ";
             this.mtrchucvu.VerticalScrollbarBarColor = true;
             this.mtrchucvu.VerticalScrollbarHighlightOnWheel = false;
             this.mtrchucvu.VerticalScrollbarSize = 10;
+            this.mtrchucvu.Click += new System.EventHandler(this.mtrchucvu_Click);
             // 
-            // dataGridView3
+            // dgvchucvu
             // 
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(0, 201);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.Size = new System.Drawing.Size(736, 215);
-            this.dataGridView3.TabIndex = 2;
+            this.dgvchucvu.AllowUserToOrderColumns = true;
+            this.dgvchucvu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvchucvu.Location = new System.Drawing.Point(0, 201);
+            this.dgvchucvu.Name = "dgvchucvu";
+            this.dgvchucvu.Size = new System.Drawing.Size(736, 223);
+            this.dgvchucvu.TabIndex = 2;
             // 
             // label9
             // 
@@ -507,32 +509,32 @@
             this.txtMaCV.Size = new System.Drawing.Size(75, 20);
             this.txtMaCV.TabIndex = 4;
             // 
-            // button2
+            // btthem
             // 
-            this.button2.Location = new System.Drawing.Point(143, 169);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btthem.Location = new System.Drawing.Point(143, 169);
+            this.btthem.Name = "btthem";
+            this.btthem.Size = new System.Drawing.Size(75, 23);
+            this.btthem.TabIndex = 5;
+            this.btthem.Text = "THÊM";
+            this.btthem.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btsua
             // 
-            this.button3.Location = new System.Drawing.Point(314, 169);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "button2";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btsua.Location = new System.Drawing.Point(314, 169);
+            this.btsua.Name = "btsua";
+            this.btsua.Size = new System.Drawing.Size(75, 23);
+            this.btsua.TabIndex = 5;
+            this.btsua.Text = "SỬA";
+            this.btsua.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btdong
             // 
-            this.button5.Location = new System.Drawing.Point(481, 169);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 5;
-            this.button5.Text = "button2";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btdong.Location = new System.Drawing.Point(481, 169);
+            this.btdong.Name = "btdong";
+            this.btdong.Size = new System.Drawing.Size(75, 23);
+            this.btdong.TabIndex = 5;
+            this.btdong.Text = "ĐÓNG";
+            this.btdong.UseVisualStyleBackColor = true;
             // 
             // label10
             // 
@@ -605,7 +607,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1094, 523);
+            this.ClientSize = new System.Drawing.Size(1095, 523);
             this.Controls.Add(this.mtLuong);
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "quanlynhansu";
@@ -624,7 +626,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.mtrchucvu.ResumeLayout(false);
             this.mtrchucvu.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvchucvu)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -669,9 +671,9 @@
         private System.Windows.Forms.DataGridView dataGridView2;
         private MetroFramework.Controls.MetroTabPage mtrchucvu;
         private System.Windows.Forms.ComboBox cbxtenchucvu;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btdong;
+        private System.Windows.Forms.Button btsua;
+        private System.Windows.Forms.Button btthem;
         private System.Windows.Forms.TextBox txtmota;
         private System.Windows.Forms.TextBox txtNgaytao;
         private System.Windows.Forms.TextBox txtngaysua;
@@ -681,7 +683,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.DataGridView dgvchucvu;
     }
 }
 
