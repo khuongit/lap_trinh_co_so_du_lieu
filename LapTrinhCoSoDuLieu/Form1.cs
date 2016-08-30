@@ -82,12 +82,20 @@ namespace LapTrinhCoSoDuLieu
             //newRow["MaNV"] = txtID;
             newRow["First_Name"] = txtfname.Text;
             newRow["Last_Name"] = txtlname.Text;
+            newRow["Email"] = txtEmail.Text;
+            newRow["Phone"] = txtphone.Text;
+            newRow["Address"] = txtdiachi.Text;
+            newRow["GovernmentID"] = txtpeolpeid.Text;
             dt.Rows.Add(newRow);
-            string ins = "INSERT INTO Staff(First_Name, Last_Name) VALUES(@First_Name, @Last_name)";
+            string ins = "INSERT INTO Staff(First_Name, Last_Name, Email,Phone, Address, GovernmentID) VALUES(@First_Name, @Last_name,@Email, @Phone, @Address,@GovernmentID)";
             SqlCommand cmd = new SqlCommand(ins, cn);
             //cmd.Parameters.Add("@ID", SqlDbType.NVarChar, 4, "MaKH"); CSDL Tu Dong Tang
             cmd.Parameters.Add("@First_Name", SqlDbType.NVarChar, 30, "First_Name");
             cmd.Parameters.Add("@Last_Name", SqlDbType.NVarChar, 20, "Last_Name");
+            cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 50, "Email");
+            cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 20, "Phone");
+            cmd.Parameters.Add("@Address", SqlDbType.NVarChar, 20, "Address");
+            cmd.Parameters.Add("@GovernmentID", SqlDbType.NVarChar, 20, "GovernmentID");
             SqlDataAdapter da = new SqlDataAdapter();
             da.InsertCommand = cmd;
 
@@ -112,8 +120,12 @@ namespace LapTrinhCoSoDuLieu
                 btndong.Visible = true;
                 txtfname.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
                 txtlname.Text = dgv.SelectedRows[0].Cells[2].Value.ToString();
-                txtdayofbirth.Text = dgv.SelectedRows[0].Cells[3].Value.ToString();
-                txtaddress.Text = dgv.SelectedRows[0].Cells[4].Value.ToString();
+                txtEmail.Text = dgv.SelectedRows[0].Cells[3].Value.ToString();
+                txtphone.Text = dgv.SelectedRows[0].Cells[4].Value.ToString();
+                txtdiachi.Text = dgv.SelectedRows[0].Cells[5].Value.ToString();
+                txtpeolpeid.Text = dgv.SelectedRows[0].Cells[6].Value.ToString();
+                
+
             }
                 //MessageBox.Show(dgv.SelectedRows[0].Cells[0].Value.ToString());
             
@@ -127,8 +139,11 @@ namespace LapTrinhCoSoDuLieu
             btndong.Visible = false;
             txtfname.Text = "";
             txtlname.Text = "";
-            txtaddress.Text = "";
-            txtdayofbirth.Text = "";
+            txtEmail.Text = "";
+            txtphone.Text = "";
+            txtpeolpeid.Text = "";
+            txtdiachi.Text = "";
+            
         }
         
         private DataSet GetSection()
