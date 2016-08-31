@@ -49,6 +49,7 @@
             this.lbfname = new System.Windows.Forms.Label();
             this.txtpeolpeid = new System.Windows.Forms.TextBox();
             this.txtdiachi = new System.Windows.Forms.TextBox();
+            this.txtDateOfBirth = new System.Windows.Forms.TextBox();
             this.txtphone = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtlname = new System.Windows.Forms.TextBox();
@@ -78,7 +79,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.dgvchucvu = new System.Windows.Forms.DataGridView();
-            this.txtDateOfBirth = new System.Windows.Forms.TextBox();
             this.mtLuong.SuspendLayout();
             this.Home.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvnhanvien)).BeginInit();
@@ -155,6 +155,7 @@
             this.btnsearch.TabIndex = 8;
             this.btnsearch.Text = "Tìm";
             this.btnsearch.UseVisualStyleBackColor = true;
+            this.btnsearch.Click += new System.EventHandler(this.btnsearch_Click);
             // 
             // drlpb
             // 
@@ -314,6 +315,13 @@
             this.txtdiachi.Size = new System.Drawing.Size(132, 20);
             this.txtdiachi.TabIndex = 4;
             // 
+            // txtDateOfBirth
+            // 
+            this.txtDateOfBirth.Location = new System.Drawing.Point(942, 262);
+            this.txtDateOfBirth.Name = "txtDateOfBirth";
+            this.txtDateOfBirth.Size = new System.Drawing.Size(132, 20);
+            this.txtDateOfBirth.TabIndex = 4;
+            // 
             // txtphone
             // 
             this.txtphone.Location = new System.Drawing.Point(942, 140);
@@ -342,6 +350,7 @@
             this.txtsearch.Size = new System.Drawing.Size(745, 20);
             this.txtsearch.TabIndex = 4;
             this.txtsearch.Text = "Gõ Vào Nội Dung Bạn Muốn Tìm Kiếm";
+            this.txtsearch.TextChanged += new System.EventHandler(this.txtsearch_TextChanged);
             // 
             // txtfname
             // 
@@ -593,13 +602,6 @@
             this.dgvchucvu.Name = "dgvchucvu";
             this.dgvchucvu.Size = new System.Drawing.Size(736, 223);
             this.dgvchucvu.TabIndex = 2;
-            // 
-            // txtDateOfBirth
-            // 
-            this.txtDateOfBirth.Location = new System.Drawing.Point(942, 262);
-            this.txtDateOfBirth.Name = "txtDateOfBirth";
-            this.txtDateOfBirth.Size = new System.Drawing.Size(132, 20);
-            this.txtDateOfBirth.TabIndex = 4;
             // 
             // quanlynhansu
             // 

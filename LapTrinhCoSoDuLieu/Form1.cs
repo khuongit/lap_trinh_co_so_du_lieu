@@ -172,5 +172,20 @@ namespace LapTrinhCoSoDuLieu
                 string name = fields[1];
             }
         }
+
+        private void btnsearch_Click(object sender, EventArgs e)
+        {
+            txtsearch.Show();
+            btnsearch.Enabled = false;
+        }
+
+        private void txtsearch_TextChanged(object sender, EventArgs e)
+        {
+            //dt = new DataTable();
+            string sql = "Select * From staff Where Last_Name LIKE '%'" + txtsearch.Text + '%';
+            //OleDbDataAdapter da = new OleDbDataAdapter(sql, cn);
+            da.Fill(dt);
+            dgvnhanvien.DataSource = dt;
+        }
     }
 }
