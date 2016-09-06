@@ -79,6 +79,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.dgvchucvu = new System.Windows.Forms.DataGridView();
+            this.mtr_report = new MetroFramework.Controls.MetroTabPage();
             this.mtLuong.SuspendLayout();
             this.Home.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvnhanvien)).BeginInit();
@@ -95,10 +96,11 @@
             this.mtLuong.Controls.Add(this.Home);
             this.mtLuong.Controls.Add(this.metroTabPage1);
             this.mtLuong.Controls.Add(this.mtrchucvu);
+            this.mtLuong.Controls.Add(this.mtr_report);
             this.mtLuong.Location = new System.Drawing.Point(1, 62);
             this.mtLuong.Margin = new System.Windows.Forms.Padding(2);
             this.mtLuong.Name = "mtLuong";
-            this.mtLuong.SelectedIndex = 0;
+            this.mtLuong.SelectedIndex = 3;
             this.mtLuong.Size = new System.Drawing.Size(1094, 593);
             this.mtLuong.TabIndex = 1;
             this.mtLuong.UseSelectable = true;
@@ -603,6 +605,20 @@
             this.dgvchucvu.Size = new System.Drawing.Size(736, 223);
             this.dgvchucvu.TabIndex = 2;
             // 
+            // mtr_report
+            // 
+            this.mtr_report.HorizontalScrollbarBarColor = true;
+            this.mtr_report.HorizontalScrollbarHighlightOnWheel = false;
+            this.mtr_report.HorizontalScrollbarSize = 10;
+            this.mtr_report.Location = new System.Drawing.Point(4, 38);
+            this.mtr_report.Name = "mtr_report";
+            this.mtr_report.Size = new System.Drawing.Size(1086, 551);
+            this.mtr_report.TabIndex = 3;
+            this.mtr_report.Text = "REPORT";
+            this.mtr_report.VerticalScrollbarBarColor = true;
+            this.mtr_report.VerticalScrollbarHighlightOnWheel = false;
+            this.mtr_report.VerticalScrollbarSize = 10;
+            // 
             // quanlynhansu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -686,6 +702,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.DataGridView dgvchucvu;
         private System.Windows.Forms.TextBox txtDateOfBirth;
+        private MetroFramework.Controls.MetroTabPage mtr_report;
     }
 }
 
