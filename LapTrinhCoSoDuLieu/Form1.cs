@@ -124,7 +124,8 @@ namespace LapTrinhCoSoDuLieu
                 txtphone.Text = dgv.SelectedRows[0].Cells[4].Value.ToString();
                 txtdiachi.Text = dgv.SelectedRows[0].Cells[5].Value.ToString();
                 txtpeolpeid.Text = dgv.SelectedRows[0].Cells[6].Value.ToString();
-                
+                txtDateOfBirth.Text = dgv.SelectedRows[0].Cells[7].Value.ToString();
+
 
             }
                 //MessageBox.Show(dgv.SelectedRows[0].Cells[0].Value.ToString());
@@ -143,6 +144,7 @@ namespace LapTrinhCoSoDuLieu
             txtphone.Text = "";
             txtpeolpeid.Text = "";
             txtdiachi.Text = "";
+            txtDateOfBirth.Text = "";
             
         }
         
