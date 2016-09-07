@@ -33,22 +33,23 @@ namespace LapTrinhCoSoDuLieu
             btnsua.Visible=false;
             btndong.Visible = false;
             dgvchucvu.DataSource = GetSection().Tables["Section"];
-            dgvnhanvien.DataSource = GetTable();
-            int[] numbers = new int[5];
+            GetTable();
+            //
+            
 
-            // Multidimensional array
-            string[,] names = new string[5, 4];
+            DataTable temp = new DataTable();
+            temp = GetSectionTable();
+            drlpb.DataSource = temp;
+            drlpb.DisplayMember = "Name";
+            drlpb.ValueMember = "SectionID";
+            
+            //GetRegencyTable
+            DataTable Regency_temp = new DataTable();
+            Regency_temp = GetRegencyTable();
+            drlcv.DataSource = Regency_temp;
+            drlcv.DisplayMember = "Name";
+            drlcv.ValueMember = "RegencyID";
 
-            // Array-of-arrays (jagged array)
-            byte[][] scores = new byte[5][];
-
-            // Create the jagged array
-            for (int i = 0; i < scores.Length; i++)
-            {
-                scores[i] = new byte[i + 3];
-            }
-
-            dataGridView2.DataSource = scores;
         }
 
         private void qLNHANSUDataSetBindingSource_CurrentChanged(object sender, EventArgs e)
@@ -57,7 +58,10 @@ namespace LapTrinhCoSoDuLieu
         }
         private DataSet getStaff()
         {
-            string sql = @"SELECT * FROM Staff";
+            string sql = @"SELECT StaffID AS Mã_NV, CONCAT (First_Name ,' ', Last_Name) AS Tên_Đầy_Đủ, Email , Phone AS Số_Điện_Thoại, Address AS Địa_Chỉ ,GovernmentID AS CMND , Regency.Name AS Chức_Vụ, Section.Name AS Bộ_Phận
+                            FROM Staff
+                            LEFT JOIN Section ON (Staff.SectionID = Section.SectionID)
+                            LEFT JOIN Regency ON (Staff.RegencyID = Regency.RegencyID)";
             // DataSet ds = new DataSet();
             da = new SqlDataAdapter(sql, cn);
             da.Fill(ds, "staff");
@@ -86,8 +90,10 @@ namespace LapTrinhCoSoDuLieu
             newRow["Phone"] = txtphone.Text;
             newRow["Address"] = txtdiachi.Text;
             newRow["GovernmentID"] = txtpeolpeid.Text;
+            newRow["SectionID"] = int.Parse(drlpb.SelectedValue.ToString());
+            newRow["RegencyID"] = int.Parse(drlcv.SelectedValue.ToString());
             dt.Rows.Add(newRow);
-            string ins = "INSERT INTO Staff(First_Name, Last_Name, Email,Phone, Address, GovernmentID) VALUES(@First_Name, @Last_name,@Email, @Phone, @Address,@GovernmentID)";
+            string ins = "INSERT INTO Staff(First_Name, Last_Name, Email,Phone, Address, GovernmentID, SectionID, RegencyID) VALUES(@First_Name, @Last_name,@Email, @Phone, @Address,@GovernmentID, @SectionID, @RegencyID)";
             SqlCommand cmd = new SqlCommand(ins, cn);
             //cmd.Parameters.Add("@ID", SqlDbType.NVarChar, 4, "MaKH"); CSDL Tu Dong Tang
             cmd.Parameters.Add("@First_Name", SqlDbType.NVarChar, 30, "First_Name");
@@ -96,10 +102,25 @@ namespace LapTrinhCoSoDuLieu
             cmd.Parameters.Add("@Phone", SqlDbType.NVarChar, 20, "Phone");
             cmd.Parameters.Add("@Address", SqlDbType.NVarChar, 20, "Address");
             cmd.Parameters.Add("@GovernmentID", SqlDbType.NVarChar, 20, "GovernmentID");
+            cmd.Parameters.Add("@SectionID", SqlDbType.Int, 4, "SectionID");
+            cmd.Parameters.Add("@RegencyID", SqlDbType.Int, 4, "RegencyID");
             SqlDataAdapter da = new SqlDataAdapter();
             da.InsertCommand = cmd;
 
             da.Update(dt);
+            clear_txt();
+            try
+            {
+                MetroFramework.MetroMessageBox.Show(this, "Bạn đã thêm mới thành công một nhân viên", "Thông Báo Thành Công", MessageBoxButtons.OK, MessageBoxIcon.Information, 100);
+                ClearDataSet(ds);
+                clear_drv();
+                //dgvnhanvien.DataSource = GetTable();
+                dgvnhanvien.DataSource = getStaff().Tables["staff"];
+            }
+            catch
+            {
+
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -118,18 +139,42 @@ namespace LapTrinhCoSoDuLieu
                 btnthem.Visible = false;
                 btnsua.Visible = true;
                 btndong.Visible = true;
-                txtfname.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
+                int id = int.Parse(dgv.SelectedRows[0].Cells[0].Value.ToString());
+                //
+                /*txtfname.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
                 txtlname.Text = dgv.SelectedRows[0].Cells[2].Value.ToString();
                 txtEmail.Text = dgv.SelectedRows[0].Cells[3].Value.ToString();
                 txtphone.Text = dgv.SelectedRows[0].Cells[4].Value.ToString();
                 txtdiachi.Text = dgv.SelectedRows[0].Cells[5].Value.ToString();
                 txtpeolpeid.Text = dgv.SelectedRows[0].Cells[6].Value.ToString();
-                txtDateOfBirth.Text = dgv.SelectedRows[0].Cells[7].Value.ToString();
+                txtDateOfBirth.Text = dgv.SelectedRows[0].Cells[7].Value.ToString();*/
+                ////getoneStaff
+                DataTable onestaff = getoneStaff(id).Tables["onestaff"];
+                if(onestaff.Rows.Count >0 )
+                {
+                    
+                    foreach (DataRow dtRow in onestaff.Rows)
+                    {
+                        txtfname.Text = dtRow["First_Name"].ToString();
+                        txtlname.Text = dtRow["Last_Name"].ToString();
+                        txtEmail.Text = dtRow["Email"].ToString();
+                        txtphone.Text = dtRow["Phone"].ToString();
+                        txtdiachi.Text = dtRow["Address"].ToString();
+                        txtpeolpeid.Text = dtRow["GovernmentID"].ToString();
+                        //txtDateOfBirth.Text = dtRow["DateOfBirth"].ToString();
+                        drlcv.SelectedValue = dtRow["RegencyID"].ToString();
+                        drlpb.SelectedValue = dtRow["SectionID"].ToString();
+                        string day = dtRow["DateOfBirth"].ToString() != "" ? dtRow["DateOfBirth"].ToString() : DateTime.Today.ToString();
+                        // dayofbirth.Value = new DateTime(day);
+                        dayofbirth.Value = DateTime.Parse(day);
+                        //MessageBox.Show(day);
+                    }
+                }
 
 
             }
-                //MessageBox.Show(dgv.SelectedRows[0].Cells[0].Value.ToString());
-            
+            //MessageBox.Show(dgv.SelectedRows[0].Cells[0].Value.ToString());
+
         }
 
         private void btndong_Click(object sender, EventArgs e)
@@ -138,22 +183,41 @@ namespace LapTrinhCoSoDuLieu
             btnthem.Visible = true;
             btnsua.Visible = false;
             btndong.Visible = false;
+
+            clear_txt();
+        }
+        private void clear_txt()
+        {
             txtfname.Text = "";
             txtlname.Text = "";
             txtEmail.Text = "";
             txtphone.Text = "";
             txtpeolpeid.Text = "";
             txtdiachi.Text = "";
-            txtDateOfBirth.Text = "";
-            
+            //txtDateOfBirth.Text = "";
         }
-        
         private DataSet GetSection()
         {
             string sql = @"SELECT * FROM Section"; 
             da = new SqlDataAdapter(sql, cn);
             da.Fill(ds, "Section");
             return ds;
+        }
+        private DataTable GetSectionTable()
+        {
+            DataTable sec = new DataTable();
+            string sql = @"SELECT SectionID,Name FROM Section";
+            da = new SqlDataAdapter(sql, cn);
+            da.Fill(sec);
+            return sec;
+        }
+        private DataTable GetRegencyTable()
+        {
+            DataTable reg = new DataTable();
+            string sql = @"SELECT RegencyID,Name FROM Regency";
+            da = new SqlDataAdapter(sql, cn);
+            da.Fill(reg);
+            return reg;
         }
         private void mtrchucvu_Click(object sender, EventArgs e)
         {
@@ -178,16 +242,84 @@ namespace LapTrinhCoSoDuLieu
         private void btnsearch_Click(object sender, EventArgs e)
         {
             txtsearch.Show();
-            btnsearch.Enabled = false;
+            //btnsearch.Enabled = false;
         }
 
         private void txtsearch_TextChanged(object sender, EventArgs e)
         {
-            //dt = new DataTable();
-            string sql = "Select * From staff Where Last_Name LIKE '%'" + txtsearch.Text + '%';
-            //OleDbDataAdapter da = new OleDbDataAdapter(sql, cn);
-            da.Fill(dt);
-            dgvnhanvien.DataSource = dt;
+            
         }
+
+        private DataSet SearchStaff(string key)
+        {
+            ClearDataSet(ds);
+            string sql = @"Select StaffID AS Mã_NV, CONCAT (First_Name ,' ', Last_Name) AS Tên_Đầy_Đủ, Email , Phone AS Số_Điện_Thoại, Address AS Địa_Chỉ ,GovernmentID AS CMND , Regency.Name AS Chức_Vụ, Section.Name AS Bộ_Phận 
+                                From staff 
+                                LEFT JOIN Section ON (Staff.SectionID = Section.SectionID)
+                                LEFT JOIN Regency ON (Staff.RegencyID = Regency.RegencyID) 
+                                Where Last_Name LIKE N'%" + @key + "%'";
+            da = new SqlDataAdapter(sql, cn);
+            da.Fill(ds, "staffsearch");
+            return ds;
+        }
+        
+        private DataSet getoneStaff(int id)
+        {
+            //ClearDataSet(ds);
+            string sql = @"SELECT *
+                             FROM Staff
+                             LEFT JOIN Section ON (Staff.SectionID = Section.SectionID)
+                             LEFT JOIN Regency ON (Staff.RegencyID = Regency.RegencyID)
+                             Where StaffID = " + id + "";
+            da = new SqlDataAdapter(sql, cn);
+            da.Fill(ds, "onestaff");
+            return ds;
+        }
+        private void txtsearch_KeyUp(object sender, KeyEventArgs e)
+        {
+
+            clear_drv();
+            dgvnhanvien.DataSource = null;
+            dgvnhanvien.DataSource = SearchStaff(txtsearch.Text).Tables["staffsearch"];
+        }
+        private void clear_drv()
+        {
+            try
+            {
+                this.dgvnhanvien.DataSource = null;
+                this.dgvnhanvien.Rows.Clear();
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                while (this.dgvnhanvien.Rows.Count > 0)
+                {
+                    this.dgvnhanvien.Rows.RemoveAt(0);
+                }
+            }
+        }
+        private void ClearDataSet(DataSet dataSet)
+        {
+            // To test, print the number rows in each table.
+            foreach (DataTable table in dataSet.Tables)
+            {
+                Console.WriteLine(table.TableName + "Rows.Count = "
+                    + table.Rows.Count.ToString());
+            }
+            // Clear all rows of each table.
+            dataSet.Clear();
+
+            // Print the number of rows again.
+            foreach (DataTable table in dataSet.Tables)
+            {
+                Console.WriteLine(table.TableName + "Rows.Count = "
+                    + table.Rows.Count.ToString());
+            }
+        }
+        
     }
+
 }
