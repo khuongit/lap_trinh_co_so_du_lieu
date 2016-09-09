@@ -30,6 +30,7 @@
         {
             this.mtLuong = new MetroFramework.Controls.MetroTabControl();
             this.Home = new MetroFramework.Controls.MetroTabPage();
+            this.dayofbirth = new System.Windows.Forms.DateTimePicker();
             this.drlpb = new System.Windows.Forms.ComboBox();
             this.drlcv = new System.Windows.Forms.ComboBox();
             this.button4 = new System.Windows.Forms.Button();
@@ -78,7 +79,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.dgvchucvu = new System.Windows.Forms.DataGridView();
             this.mtr_report = new MetroFramework.Controls.MetroTabPage();
-            this.dayofbirth = new System.Windows.Forms.DateTimePicker();
+            this.btnxoa = new System.Windows.Forms.Button();
+            this.txtid = new System.Windows.Forms.TextBox();
             this.mtLuong.SuspendLayout();
             this.Home.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvnhanvien)).BeginInit();
@@ -105,12 +107,14 @@
             // 
             // Home
             // 
+            this.Home.Controls.Add(this.txtid);
             this.Home.Controls.Add(this.dayofbirth);
             this.Home.Controls.Add(this.drlpb);
             this.Home.Controls.Add(this.drlcv);
             this.Home.Controls.Add(this.button4);
             this.Home.Controls.Add(this.btnreset);
             this.Home.Controls.Add(this.btndong);
+            this.Home.Controls.Add(this.btnxoa);
             this.Home.Controls.Add(this.btnsua);
             this.Home.Controls.Add(this.btnthem);
             this.Home.Controls.Add(this.label4);
@@ -143,6 +147,14 @@
             this.Home.VerticalScrollbarBarColor = true;
             this.Home.VerticalScrollbarHighlightOnWheel = false;
             this.Home.VerticalScrollbarSize = 10;
+            // 
+            // dayofbirth
+            // 
+            this.dayofbirth.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dayofbirth.Location = new System.Drawing.Point(1413, 402);
+            this.dayofbirth.Name = "dayofbirth";
+            this.dayofbirth.Size = new System.Drawing.Size(200, 26);
+            this.dayofbirth.TabIndex = 8;
             // 
             // drlpb
             // 
@@ -202,6 +214,7 @@
             this.btnsua.TabIndex = 6;
             this.btnsua.Text = "SỬA";
             this.btnsua.UseVisualStyleBackColor = true;
+            this.btnsua.Click += new System.EventHandler(this.btnsua_Click);
             // 
             // btnthem
             // 
@@ -634,13 +647,24 @@
             this.mtr_report.VerticalScrollbarHighlightOnWheel = false;
             this.mtr_report.VerticalScrollbarSize = 15;
             // 
-            // dayofbirth
+            // btnxoa
             // 
-            this.dayofbirth.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dayofbirth.Location = new System.Drawing.Point(1413, 402);
-            this.dayofbirth.Name = "dayofbirth";
-            this.dayofbirth.Size = new System.Drawing.Size(200, 26);
-            this.dayofbirth.TabIndex = 8;
+            this.btnxoa.Location = new System.Drawing.Point(1304, 569);
+            this.btnxoa.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnxoa.Name = "btnxoa";
+            this.btnxoa.Size = new System.Drawing.Size(90, 35);
+            this.btnxoa.TabIndex = 6;
+            this.btnxoa.Text = "XÓA";
+            this.btnxoa.UseVisualStyleBackColor = true;
+            this.btnxoa.Click += new System.EventHandler(this.btnxoa_Click);
+            // 
+            // txtid
+            // 
+            this.txtid.Location = new System.Drawing.Point(1413, 480);
+            this.txtid.Name = "txtid";
+            this.txtid.Size = new System.Drawing.Size(100, 26);
+            this.txtid.TabIndex = 9;
+            this.txtid.Visible = false;
             // 
             // quanlynhansu
             // 
@@ -724,6 +748,8 @@
         private System.Windows.Forms.DataGridView dgvchucvu;
         private MetroFramework.Controls.MetroTabPage mtr_report;
         private System.Windows.Forms.DateTimePicker dayofbirth;
+        private System.Windows.Forms.Button btnxoa;
+        private System.Windows.Forms.TextBox txtid;
     }
 }
 

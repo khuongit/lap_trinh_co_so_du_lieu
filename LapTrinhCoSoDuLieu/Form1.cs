@@ -32,6 +32,7 @@ namespace LapTrinhCoSoDuLieu
             dgvnhanvien.DataSource = getStaff().Tables["staff"];
             btnsua.Visible=false;
             btndong.Visible = false;
+            btnxoa.Visible = false;
             dgvchucvu.DataSource = GetSection().Tables["Section"];
             GetTable();
             //
@@ -139,15 +140,9 @@ namespace LapTrinhCoSoDuLieu
                 btnthem.Visible = false;
                 btnsua.Visible = true;
                 btndong.Visible = true;
+                btnxoa.Visible = true;
                 int id = int.Parse(dgv.SelectedRows[0].Cells[0].Value.ToString());
-                //
-                /*txtfname.Text = dgv.SelectedRows[0].Cells[1].Value.ToString();
-                txtlname.Text = dgv.SelectedRows[0].Cells[2].Value.ToString();
-                txtEmail.Text = dgv.SelectedRows[0].Cells[3].Value.ToString();
-                txtphone.Text = dgv.SelectedRows[0].Cells[4].Value.ToString();
-                txtdiachi.Text = dgv.SelectedRows[0].Cells[5].Value.ToString();
-                txtpeolpeid.Text = dgv.SelectedRows[0].Cells[6].Value.ToString();
-                txtDateOfBirth.Text = dgv.SelectedRows[0].Cells[7].Value.ToString();*/
+                txtid.Text = id.ToString();
                 ////getoneStaff
                 DataTable onestaff = getoneStaff(id).Tables["onestaff"];
                 if(onestaff.Rows.Count >0 )
@@ -162,8 +157,15 @@ namespace LapTrinhCoSoDuLieu
                         txtdiachi.Text = dtRow["Address"].ToString();
                         txtpeolpeid.Text = dtRow["GovernmentID"].ToString();
                         //txtDateOfBirth.Text = dtRow["DateOfBirth"].ToString();
-                        drlcv.SelectedValue = dtRow["RegencyID"].ToString();
-                        drlpb.SelectedValue = dtRow["SectionID"].ToString();
+                        if(dtRow["RegencyID"].ToString() != "")
+                        {
+                            drlcv.SelectedValue = dtRow["RegencyID"].ToString();
+                        }
+                        if (dtRow["SectionID"].ToString() != "")
+                        {
+                            drlpb.SelectedValue = dtRow["SectionID"].ToString();
+                        }
+                        
                         string day = dtRow["DateOfBirth"].ToString() != "" ? dtRow["DateOfBirth"].ToString() : DateTime.Today.ToString();
                         // dayofbirth.Value = new DateTime(day);
                         dayofbirth.Value = DateTime.Parse(day);
@@ -183,7 +185,7 @@ namespace LapTrinhCoSoDuLieu
             btnthem.Visible = true;
             btnsua.Visible = false;
             btndong.Visible = false;
-
+            btnxoa.Visible = false;
             clear_txt();
         }
         private void clear_txt()
@@ -195,6 +197,7 @@ namespace LapTrinhCoSoDuLieu
             txtpeolpeid.Text = "";
             txtdiachi.Text = "";
             //txtDateOfBirth.Text = "";
+            dayofbirth.Value = DateTime.Today;
         }
         private DataSet GetSection()
         {
@@ -319,7 +322,113 @@ namespace LapTrinhCoSoDuLieu
                     + table.Rows.Count.ToString());
             }
         }
-        
+
+        private void btnxoa_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(txtid.Text);
+            
+            if(id != null)
+            {
+                
+                cn.Open();
+                SqlCommand sqlComm = new SqlCommand();
+                sqlComm = cn.CreateCommand();
+                sqlComm.CommandText = @"DELETE FROM Staff WHERE StaffID =@condition";
+                sqlComm.Parameters.Add("@condition", SqlDbType.Int);
+                sqlComm.Parameters["@condition"].Value = id;
+                sqlComm.ExecuteNonQuery();
+                cn.Close();
+                try
+                {
+                    btnreset.Visible = true;
+                    btnthem.Visible = true;
+                    btnsua.Visible = false;
+                    btndong.Visible = false;
+                    btnxoa.Visible = false;
+                    clear_txt();
+                    MetroFramework.MetroMessageBox.Show(this, "Bạn đã xóa thành công một nhân viên", "Thông Báo Thành Công", MessageBoxButtons.OK, MessageBoxIcon.Information, 100);
+                    ClearDataSet(ds);
+                    clear_drv();
+                  
+                    dgvnhanvien.DataSource = getStaff().Tables["staff"];
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        private void btnsua_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(txtid.Text);
+
+            if (id != null)
+            {
+                string fname = txtfname.Text;
+                string lname = txtlname.Text;
+                string email = txtEmail.Text;
+                string phone = txtphone.Text;
+                string address = txtdiachi.Text;
+                string peoid = txtpeolpeid.Text;
+                string sect = drlpb.SelectedValue.ToString();
+                string regid = drlcv.SelectedValue.ToString();
+                string birthday = dayofbirth.Value.ToString();
+                string m_date = DateTime.Today.ToString();
+                cn.Open();
+                SqlCommand sqlComm = new SqlCommand();
+                sqlComm = cn.CreateCommand();
+                sqlComm.CommandText = @"UPDATE Staff SET First_Name=@First_Name,Last_Name=@Last_Name,Email=@Email,Phone=@Phone,Address=@Address,GovernmentID=@GovernmentID,SectionID=@SectionID,RegencyID=@RegencyID,DateOfBirth=@DateOfBirth,LastModifiyDate=@LastModifiyDate WHERE StaffID =@id";
+                sqlComm.Parameters.Add("@id", SqlDbType.Int);
+                sqlComm.Parameters["@id"].Value = id;
+
+                sqlComm.Parameters.Add("@First_Name", SqlDbType.NVarChar);
+                sqlComm.Parameters["@First_Name"].Value = fname;
+
+                sqlComm.Parameters.Add("@Last_Name", SqlDbType.NVarChar);
+                sqlComm.Parameters["@Last_Name"].Value = lname;
+
+                sqlComm.Parameters.Add("@Email", SqlDbType.NVarChar);
+                sqlComm.Parameters["@Email"].Value = email;
+
+                sqlComm.Parameters.Add("@Phone", SqlDbType.NVarChar);
+                sqlComm.Parameters["@Phone"].Value = phone;
+
+                sqlComm.Parameters.Add("@Address", SqlDbType.NVarChar);
+                sqlComm.Parameters["@Address"].Value = address;
+
+                sqlComm.Parameters.Add("@GovernmentID", SqlDbType.NVarChar);
+                sqlComm.Parameters["@GovernmentID"].Value = peoid;
+
+                sqlComm.Parameters.Add("@SectionID", SqlDbType.Int);
+                sqlComm.Parameters["@SectionID"].Value = int.Parse(sect);
+
+                sqlComm.Parameters.Add("@RegencyID", SqlDbType.Int);
+                sqlComm.Parameters["@RegencyID"].Value = int.Parse(regid);
+
+                sqlComm.Parameters.Add("@DateOfBirth", SqlDbType.DateTime);
+                sqlComm.Parameters["@DateOfBirth"].Value = DateTime.Parse(birthday);
+
+                sqlComm.Parameters.Add("@LastModifiyDate", SqlDbType.DateTime);
+                sqlComm.Parameters["@LastModifiyDate"].Value = DateTime.Parse(m_date);
+
+                sqlComm.ExecuteNonQuery();
+                cn.Close();
+                try
+                {
+                    clear_txt();
+                    MetroFramework.MetroMessageBox.Show(this, "Bạn đã sửa thành công một nhân viên", "Thông Báo Thành Công", MessageBoxButtons.OK, MessageBoxIcon.Information, 100);
+                    ClearDataSet(ds);
+                    clear_drv();
+
+                    dgvnhanvien.DataSource = getStaff().Tables["staff"];
+                }
+                catch
+                {
+
+                }
+            }
+        }
     }
 
 }
